@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saman Game Center | Hariq</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <!-- Boxicons for icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a2238;
+      --secondary: #9daaf2;
+      --accent: #ff6a3d;
+      --bg: #232946;
+      --card: #2d3250;
+      --text: #eaeaea;
+      --glass: rgba(34,41,70,0.85);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', 'Orbitron', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(90deg, var(--primary) 80%, var(--accent) 100%);
+      color: #fff;
+      box-shadow: 0 2px 12px #1a223855;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      padding: 0 36px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.7em;
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .logo i {
+      font-size: 1.5em;
+      color: var(--accent);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.08em;
+      transition: color 0.2s;
+      position: relative;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.2s;
+      position: absolute;
+      left: 0; bottom: -4px;
+    }
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
+    }
+    nav a:hover, nav a.active {
+      color: var(--accent);
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      background: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      position: relative;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(26,34,56,0.7);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      padding: 90px 24px 70px 24px;
+    }
+    .hero-title {
+      font-size: 3em;
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      font-weight: bold;
+      margin-bottom: 18px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 16px #0008;
+    }
+    .hero-subtitle {
+      font-size: 1.3em;
+      margin-bottom: 32px;
+      text-shadow: 0 2px 8px #0005;
+    }
+    .hero-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 14px 38px;
+      font-size: 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #ff6a3d33;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .hero-btn:hover {
+      background: var(--secondary);
+      color: var(--primary);
+      transform: scale(1.05);
+    }
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 40px 24px;
+    }
+    .section-title {
+      font-size: 2em;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 24px;
+      text-align: center;
+      letter-spacing: 1px;
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+    }
+    .tvs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin-top: 24px;
+    }
+    .tv-card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 2px 16px #1a223822;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      border: 2px solid var(--accent);
+    }
+    .tv-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 32px #ff6a3d33;
+      border-color: var(--secondary);
+    }
+    .tv-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      background: #232946;
+    }
+    .tv-info {
+      padding: 18px 16px 16px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tv-title {
+      font-size: 1.13em;
+      font-weight: bold;
+      color: var(--secondary);
+      margin-bottom: 2px;
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+    }
+    .tv-games {
+      color: #eaeaea;
+      font-size: 0.98em;
+      margin-bottom: 6px;
+    }
+    .tv-status {
+      font-size: 0.97em;
+      font-weight: bold;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .pay-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 0;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+      width: 100%;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .pay-btn:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+    .games-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    .game-chip {
+      background: var(--secondary);
+      color: var(--primary);
+      border-radius: 18px;
+      padding: 7px 18px;
+      font-size: 1em;
+      font-weight: bold;
+      box-shadow: 0 2px 8px #9daaf233;
+      margin-bottom: 6px;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .payment-section {
+      background: var(--glass);
+      border-radius: 18px;
+      box-shadow: 0 2px 24px #1a223855;
+      max-width: 480px;
+      margin: 40px auto 0 auto;
+      padding: 36px 28px 28px 28px;
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .payment-section h2 {
+      color: var(--secondary);
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      margin-top: 0;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .payment-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .payment-form select, .payment-form input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--secondary);
+      font-size: 1em;
+      background: #232946;
+      color: #fff;
+      margin-bottom: 14px;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .payment-form input[type="number"]::-webkit-inner-spin-button,
+    .payment-form input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .payment-form button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 0;
+      font-size: 1.08em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      margin-top: 8px;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .payment-form button:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+    .payment-summary {
+      background: #232946;
+      border-radius: 10px;
+      padding: 18px 16px;
+      margin-top: 18px;
+      color: var(--secondary);
+      font-size: 1.1em;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 2px 8px #9daaf233;
+    }
+    .menu-section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 0 0 0;
+    }
+    .menu-title {
+      font-size: 1.3em;
+      color: var(--accent);
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+      margin-top: 14px;
+      margin-bottom: 24px;
+    }
+    .menu-card {
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #1a223822;
+      padding: 18px 12px;
+      text-align: center;
+      color: var(--secondary);
+      font-size: 1.08em;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .menu-card .bx {
+      font-size: 2em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    footer {
+      background: #161b2a;
+      color: #fff;
+      text-align: center;
+      padding: 24px 0 12px 0;
+      font-size: 1em;
+      margin-top: 0;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 900px) {
+      .tvs-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .menu-section { padding: 24px 0 0 0; }
+    }
+    @media (max-width: 600px) {
+      header { flex-direction: column; height: auto; padding: 8px 8px; }
+      .section { padding: 36px 6px 24px 6px; }
+      .payment-section { padding: 18px 6px 18px 6px; }
+      .menu-section { padding: 12px 0 0 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class='bx bx-joystick'></i> Saman Game Center
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#tvs" class="active">TVs</a></li>
+        <li><a href="#games">Games</a></li>
+        <li><a href="#menu">Cakes & Drinks</a></li>
+        <li><a href="#payment">Payment</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-title">Saman Game Center</div>
+      <div class="hero-subtitle">The Ultimate Gaming Place in Hariq — 12 TVs, FIFA, PES, Call of Duty, Warzone, Cakes & Drinks!</div>
+      <a href="#payment"><button class="hero-btn"><i class='bx bx-credit-card'></i> Start Playing</button></a>
+    </div>
+  </section>
+
+  <!-- TVs Section -->
+  <section class="section" id="tvs">
+    <div class="section-title">Our 12 TV Gaming Systems</div>
+    <div class="tvs-grid">
+      <!-- 12 TV Cards -->
+      <script>
+        // This script block will be replaced by the next <script> at the end
+      </script>
+    </div>
+  </section>
+
+  <!-- Games Section -->
+  <section class="section" id="games">
+    <div class="section-title">Available Games</div>
+    <div class="games-list">
+      <div class="game-chip"><i class='bx bx-football'></i> FIFA 2020-2025</div>
+      <div class="game-chip"><i class='bx bx-football'></i> PES 2020-2025</div>
+      <div class="game-chip"><i class='bx bx-target-lock'></i> Call of Duty: Warzone</div>
+      <div class="game-chip"><i class='bx bx-target-lock'></i> Call of Duty: Cold War</div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section" id="menu">
+    <div class="menu-title">Cakes & Drinks Menu</div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <i class='bx bx-cake'></i><br>
+        Chocolate Cake<br>
+        <b>2000 IQD</b>
+      </div>
+      <div class="menu-card">
+        <i class='bx bx-cake'></i><br>
+        Red Velvet Cake<br>
+        <b>2500 IQD</b>
+      </div>
+      <div class="menu-card">
+        <i class='bx bx-coffee'></i><br>
+        Cappuccino<br>
+        <b>1500 IQD</b>
+      </div>
+      <div class="menu-card">
+        <i class='bx bx-coffee'></i><br>
+        Espresso<br>
+        <b>1200 IQD</b>
+      </div>
+      <div class="menu-card">
+        <i class='bx bx-drink'></i><br>
+        Soft Drink<br>
+        <b>1000 IQD</b>
+      </div>
+      <div class="menu-card">
+        <i class='bx bx-water'></i><br>
+        Water<br>
+        <b>500 IQD</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment Section -->
+  <section class="payment-section" id="payment">
+    <h2>Game & Snack Payment System</h2>
+    <form class="payment-form" id="payForm" autocomplete="off">
+      <label for="tvNum">Choose TV Number</label>
+      <select id="tvNum" required>
+        <option value="">Select TV</option>
+        <option value="1">TV 1</option>
+        <option value="2">TV 2</option>
+        <option value="3">TV 3</option>
+        <option value="4">TV 4</option>
+        <option value="5">TV 5</option>
+        <option value="6">TV 6</option>
+        <option value="7">TV 7</option>
+        <option value="8">TV 8</option>
+        <option value="9">TV 9</option>
+        <option value="10">TV 10</option>
+        <option value="11">TV 11</option>
+        <option value="12">TV 12</option>
+      </select>
+      <label for="game">Choose Game</label>
+      <select id="game" required>
+        <option value="">Select Game</option>
+        <option value="FIFA">FIFA 2020-2025</option>
+        <option value="PES">PES 2020-2025</option>
+        <option value="Warzone">Call of Duty: Warzone</option>
+        <option value="Cold War">Call of Duty: Cold War</option>
+      </select>
+      <label for="minutes">Minutes (FIFA/PES: 5-25 min)</label>
+      <input type="number" id="minutes" min="5" max="25" step="1" value="8" required>
+      <label for="cake">Add Cake</label>
+      <select id="cake">
+        <option value="">No Cake</option>
+        <option value="Chocolate Cake">Chocolate Cake (2000 IQD)</option>
+        <option value="Red Velvet Cake">Red Velvet Cake (2500 IQD)</option>
+      </select>
+      <label for="drink">Add Drink</label>
+      <select id="drink">
+        <option value="">No Drink</option>
+        <option value="Cappuccino">Cappuccino (1500 IQD)</option>
+        <option value="Espresso">Espresso (1200 IQD)</option>
+        <option value="Soft Drink">Soft Drink (1000 IQD)</option>
+        <option value="Water">Water (500 IQD)</option>
+      </select>
+      <button type="submit">Calculate & Pay</button>
+    </form>
+    <div class="payment-summary" id="paymentSummary" style="display:none;"></div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="section-title">Contact & Location</div>
+    <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:center;">
+      <div style="flex:1;min-width:240px;">
+        <p><i class='bx bx-map'></i> Hariq, Main Street, Near Central Park</p>
+        <p><i class='bx bx-envelope'></i> <a href="mailto:saman@gamecenter.com" style="color:var(--accent);">saman@gamecenter.com</a></p>
+        <p><i class='bx bx-phone'></i> +964 750 123 4567</p>
+        <div class="footer-social" style="margin-top:18px;">
+          <a href="#"><i class='bx bxl-facebook'></i></a>
+          <a href="#"><i class='bx bxl-instagram'></i></a>
+          <a href="#"><i class='bx bxl-twitter'></i></a>
+        </div>
+      </div>
+      <div style="flex:1;min-width:260px;">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=44.008,36.190,44.018,36.200&amp;layer=mapnik" style="width:100%;height:220px;border-radius:12px;border:none;"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      &copy; 2025 Saman Game Center, Hariq. All rights reserved.
+    </div>
+    <div style="margin-top:8px;font-size:0.95em;">
+      Designed by your web team.
+    </div>
+  </footer>
+
+  <script>
+    // Dynamically render 12 TV cards
+    const tvsGrid = document.querySelector('.tvs-grid');
+    const games = [
+      "FIFA 2020-2025",
+      "PES 2020-2025",
+      "Call of Duty: Warzone",
+      "Call of Duty: Cold War"
+    ];
+    for(let i=1;i<=12;i++) {
+      const tvCard = document.createElement('div');
+      tvCard.className = 'tv-card';
+      tvCard.innerHTML = `
+        <img class="tv-img" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" alt="TV ${i}">
+        <div class="tv-info">
+          <div class="tv-title">TV System #${i}</div>
+          <div class="tv-games">${games.join(', ')}</div>
+          <div class="tv-status"><i class='bx bx-check-circle'></i> Available</div>
+          <button class="pay-btn" onclick="document.getElementById('tvNum').value='${i}';window.scrollTo({top:document.getElementById('payment').offsetTop-40,behavior:'smooth'});">Book & Pay</button>
+        </div>
+      `;
+      tvsGrid.appendChild(tvCard);
+    }
+
+    // Payment System
+    document.getElementById('payForm').onsubmit = function(e) {
+      e.preventDefault();
+      const game = document.getElementById('game').value;
+      const minutes = parseInt(document.getElementById('minutes').value, 10);
+      let total = 0;
+      let details = "";
+
+      // Game payment logic
+      if(game === "FIFA" || game === "PES") {
+        if(minutes < 5 || minutes > 25) {
+          alert("You can play FIFA/PES from 5 to 25 minutes only.");
+          return;
+        }
+        // 8 minutes = 1000 IQD, so price per minute:
+        const pricePerMinute = 1000 / 8;
+        total += Math.round(minutes * pricePerMinute);
+        details += `${game} for ${minutes} min: <b>${Math.round(minutes * pricePerMinute)} IQD</b><br>`;
+      } else if(game === "Warzone" || game === "Cold War") {
+        // Flat rate: 2000 IQD per session (for demo)
+        total += 2000;
+        details += `${game} session: <b>2000 IQD</b><br>`;
+      }
+
+      // Cake
+      const cake = document.getElementById('cake').value;
+      if(cake === "Chocolate Cake") { total += 2000; details += `Chocolate Cake: <b>2000 IQD</b><br>`; }
+      if(cake === "Red Velvet Cake") { total += 2500; details += `Red Velvet Cake: <b>2500 IQD</b><br>`; }
+
+      // Drink
+      const drink = document.getElementById('drink').value;
+      if(drink === "Cappuccino") { total += 1500; details += `Cappuccino: <b>1500 IQD</b><br>`; }
+      if(drink === "Espresso") { total += 1200; details += `Espresso: <b>1200 IQD</b><br>`; }
+      if(drink === "Soft Drink") { total += 1000; details += `Soft Drink: <b>1000 IQD</b><br>`; }
+      if(drink === "Water") { total += 500; details += `Water: <b>500 IQD</b><br>`; }
+
+      document.getElementById('paymentSummary').style.display = 'block';
+      document.getElementById('paymentSummary').innerHTML = `
+        <div style="margin-bottom:10px;">${details}</div>
+        <div style="font-size:1.2em;color:var(--accent);">Total: <b>${total} IQD</b></div>
+        <div style="margin-top:10px;font-size:0.97em;color:var(--secondary);">Thank you for your payment! Enjoy your game and snacks.</div>
+      `;
+    };
+  </script>
+</body>
+</html>
